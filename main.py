@@ -4,7 +4,7 @@ def main():
     characters = character_count(text)
     total_words = word_count(text)
     sorted_count = sort(characters)
-    print(sorted_count)
+    report(book_path, total_words, sorted_count)
 
 ##counts the number of each character (ignoring case) and returns a
 # dictionary in letter : number pairs
@@ -13,7 +13,7 @@ def character_count(text):
     character_dict = {}
     for char in text:
         lowered_char = char.lower()
-        if lowered_char in "abcdefghijklmnopqrstuvwxyz":
+        if lowered_char.isalpha() == True:
             if lowered_char not in character_dict:
                 character_dict[lowered_char] = 1
             else:
@@ -47,4 +47,18 @@ def sort(dict):
         dict_list.append(item)
     dict_list.sort(reverse=True, key=sort_on)
     return dict_list
+
+#formats and prints the report
+
+def report(book_path, total_words, sorted_count):
+    print(f"""--- Begin report of {book_path} ---
+{total_words} words found in document
+          
+""")
+    for i in sorted_count:
+        character = i["character"]
+        number = i["num"]
+        print(f"The {character} character was found {number} times")
+    print("--- End Report ---")
+    return
 main()
